@@ -3,14 +3,14 @@ import pew
 
 pew.init()
 screen = pew.Pix.from_iter((
-    (0, 0, 0, 0, 0, 0, 0, 0),
-    (0, 0, 2, 0, 0, 2, 0, 0),
-    (0, 0, 0, 0, 0, 0, 0, 0),
-    (0, 0, 2, 0, 0, 2, 0, 0),
-    (0, 0, 0, 0, 0, 0, 0, 0),
-    (0, 0, 2, 0, 0, 2, 0, 0),
-    (0, 0, 0, 0, 0, 0, 0, 0),
-    (0, 0, 0, 0, 0, 0, 0, 0),
+    (2, 0, 0, 0, 0, 0, 2, 0),
+    (0, 0, 0, 2, 0, 2, 2, 2),
+    (0, 0, 0, 0, 2, 0, 2, 0),
+    (0, 0, 0, 0, 2, 2, 0, 2),
+    (0, 0, 0, 0, 0, 2, 0, 0),
+    (0, 0, 2, 0, 0, 2, 0, 2),
+    (2, 0, 2, 2, 2, 0, 2, 0),
+    (2, 2, 2, 2, 0, 0, 2, 2),
 ))
 
 x = 4
@@ -19,16 +19,19 @@ blink = True
 
 while True:
     screen.pixel(x, y, 0 if screen.pixel(x, y) < 4 else 2)
+
     keys = pew.keys()
+
     dx = 0
     dy = 0
-    if keys & pew.K_UP:
+
+    if keys & pew.K_UP and y > 0:
         dy = -1
-    elif keys & pew.K_DOWN:
+    elif keys & pew.K_DOWN and y < 7:
         dy = 1
-    elif keys & pew.K_LEFT:
+    elif keys & pew.K_LEFT and x > 0:
         dx = -1
-    elif keys & pew.K_RIGHT:
+    elif keys & pew.K_RIGHT and x < 7:
         dx = 1
 
     target = screen.pixel(x + dx, y + dy)
@@ -50,8 +53,12 @@ while True:
                 count += 1
     if count == 0:
         break
+
     screen.pixel(x, y, (3 if blink else 2) +
                  (4 if screen.pixel(x, y) in {2, 7} else 0))
+
     blink = not blink
+
     pew.show(screen)
+
     pew.tick(1 / 6)
