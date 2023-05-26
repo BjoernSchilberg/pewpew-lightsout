@@ -35,22 +35,13 @@ while True:
     # Read the current state of the keys
     keys = pew.keys()
 
-    # Initialize the change in x and y coordinates
-    dx = 0
-    dy = 0
+    # Update dx and dy based on the keys pressed
+    dx = (keys & pew.K_RIGHT > 0) - (keys & pew.K_LEFT > 0)
+    dy = (keys & pew.K_DOWN > 0) - (keys & pew.K_UP > 0)
 
-    # If the up key is pressed and the y coordinate is greater than 0, decrease y
-    if keys & pew.K_UP and y > 0:
-        dy = -1
-    # If the down key is pressed and the y coordinate is less than 7, increase y
-    elif keys & pew.K_DOWN and y < 7:
-        dy = 1
-    # If the left key is pressed and the x coordinate is greater than 0, decrease x
-    elif keys & pew.K_LEFT and x > 0:
-        dx = -1
-    # If the right key is pressed and the x coordinate is less than 7, increase x
-    elif keys & pew.K_RIGHT and x < 7:
-        dx = 1
+    # Make sure that the new x and y are within the game field (0-7 inclusive)
+    x = max(0, min(x + dx, 7))
+    y = max(0, min(y + dy, 7))
 
     # Get the brightness of the target pixel (the pixel the moving light will
     # move to in the next frame)
@@ -65,10 +56,6 @@ while True:
         screen.pixel(x - 1, y, 0 if screen.pixel(x - 1, y) in {2} else 2)
         screen.pixel(x, y + 1, 0 if screen.pixel(x, y + 1) in {2} else 2)
         screen.pixel(x, y - 1, 0 if screen.pixel(x, y - 1) in {2} else 2)
-
-    # Update the x and y coordinates
-    x += dx
-    y += dy
 
     # Count the number of pixels currently on (not blinking or bright)
     count = 0
