@@ -93,3 +93,25 @@ while True:
 
     # Wait for 1/6 of a second before the next frame
     pew.tick(1 / 6)
+
+
+# Create a Pix object from the text "Game over!"
+# The Pew library provides the from_text function to convert text into a Pix
+# object that can be displayed on the LED matrix
+text = pew.Pix.from_text("Game over!")
+
+# Loop over the range from -8 to the width of the text
+# This will scroll the text from the right side of the screen to the left
+for dx in range(-8, text.width):
+    # Blit (copy) the text Pix object onto the screen Pix object at the current
+    # x coordinate (dx) and y coordinate 1
+    # The negative sign before dx causes the text to move from right to left
+    screen.blit(text, -dx, 1)
+
+    # Update the display to show the current state of the screen Pix object
+    pew.show(screen)
+
+    # Wait for 1/12 of a second before the next frame
+    # This creates a frame rate of 12 frames per second, causing the text to
+    # scroll smoothly across the screen
+    pew.tick(1/12)
