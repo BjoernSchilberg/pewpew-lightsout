@@ -1,7 +1,6 @@
 # pewpew-lightsout
 
 - [pewpew-lightsout](#pewpew-lightsout)
-  - [TODOs](#todos)
   - [Important note when using VS Code for developing](#important-note-when-using-vs-code-for-developing)
   - [Play in pewmulator](#play-in-pewmulator)
     - [Logging in pewmulator](#logging-in-pewmulator)
@@ -16,10 +15,6 @@ Python.
 
 The goal of the puzzle is to switch all the lights off, preferably in as few
 button presses (use button `X`) as possible.
-
-## TODOs
-
-Generate a random pattern on the grid on every new start.
 
 ## Important note when using VS Code for developing
 
